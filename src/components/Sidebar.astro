@@ -1,0 +1,59 @@
+---
+const sections = [
+  "home",
+  "tech",
+  "about",
+  "projects",
+  "experience",
+  "education",
+  "contact",
+];
+---
+
+<div
+  class="fixed right-4 md:right-8 top-1/2 -translate-y-1/2 z-40 flex flex-col gap-4"
+>
+  {
+    sections.map((section) => (
+      <a
+        href={`#${section}`}
+        aria-label={`Ir a ${section}`}
+        class="group relative flex items-center justify-end"
+      >
+        <span class="absolute right-6 opacity-0 group-hover:opacity-100 transition-opacity text-xs text-muted capitalize mr-2">
+          {section}
+        </span>
+        <div
+          class="w-2 h-2 rounded-full bg-white/20 group-hover:bg-primary transition-all duration-300 nav-dot"
+          data-target={section}
+        />
+      </a>
+    ))
+  }
+</div>
+
+<script>
+  // Intersection Observer para activar el punto correcto
+  const sections = document.querySelectorAll("section");
+  const dots = document.querySelectorAll(".nav-dot");
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          dots.forEach((dot) => {
+            dot.classList.remove("bg-primary", "scale-125");
+            dot.classList.add("bg-white/20");
+            if (dot.getAttribute("data-target") === entry.target.id) {
+              dot.classList.remove("bg-white/20");
+              dot.classList.add("bg-primary", "scale-125");
+            }
+          });
+        }
+      });
+    },
+    { threshold: 0.5 },
+  );
+
+  sections.forEach((section) => observer.observe(section));
+</script>

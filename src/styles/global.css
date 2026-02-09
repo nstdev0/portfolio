@@ -1,0 +1,129 @@
+/* src/styles/global.css */
+@import "tailwindcss";
+
+@theme {
+  --color-background: var(--color-background);
+  --color-surface: var(--color-surface);
+  --color-surfaceHighlight: var(--color-surfaceHighlight);
+
+  --color-primary: var(--color-primary);
+  --color-accent: var(--color-accent);
+
+  --color-text: var(--color-text);
+  --color-muted: var(--color-muted);
+
+  --color-backend: var(--color-backend);
+  --color-frontend: var(--color-frontend);
+  --color-version-control: var(--color-version-control);
+  --color-database: var(--color-database);
+
+  --font-sans: "Inter", "sans-serif";
+  --animate-float: float 6s ease-in-out infinite;
+
+  @keyframes float {
+
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+
+    50% {
+      transform: translateY(-20px);
+    }
+  }
+}
+
+:root {
+  /* Light Mode (Default inferred) */
+  --color-background: #ffffff;
+  --color-surface: #f3f4f6;
+  --color-surfaceHighlight: #e5e7eb;
+
+  --color-primary: #2563EB;
+  /* Slightly darker blue for light mode contrast */
+  --color-accent: #3B82F6;
+
+  --color-text: #111827;
+  --color-muted: #6B7280;
+
+  --color-backend: #10B981;
+  --color-frontend: #3B82F6;
+  --color-version-control: #EF4444;
+  --color-database: #F59E0B;
+}
+
+:root.dark {
+  /* Dark Mode (Original) */
+  --color-background: #050505;
+  --color-surface: #121212;
+  --color-surfaceHighlight: #1E1E1E;
+
+  --color-primary: #3B82F6;
+  --color-accent: #60A5FA;
+
+  --color-text: #E5E7EB;
+  --color-muted: #9CA3AF;
+
+  --color-backend: #34D399;
+  --color-frontend: #60A5FA;
+  --color-version-control: #F87171;
+  --color-database: #FBBF24;
+}
+
+/* View Transitions API - Ripple Effect */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+  display: block;
+}
+
+/* New view on top */
+::view-transition-new(root) {
+  z-index: 9999;
+}
+
+/* Old view stays underneath */
+::view-transition-old(root) {
+  z-index: 1;
+}
+
+/* The ripple animation */
+::view-transition-new(root) {
+  animation: ripple 0.5s ease-in forwards;
+}
+
+@keyframes ripple {
+  from {
+    clip-path: circle(0px at var(--click-x) var(--click-y));
+  }
+
+  to {
+    clip-path: circle(150vmax at var(--click-x) var(--click-y));
+  }
+}
+
+/* Base styles */
+html {
+  scroll-behavior: smooth;
+  background-color: var(--color-background);
+  color: var(--color-text);
+}
+
+/* Scrollbar personalizada */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-background);
+}
+
+::-webkit-scrollbar-thumb {
+  background: #333;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}

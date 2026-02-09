@@ -1,0 +1,169 @@
+---
+const navItems = [
+  { name: "Home", href: "#home" },
+  { name: "About", href: "#about" },
+  { name: "Work", href: "#projects" },
+  { name: "Trajectory", href: "#experience" },
+  { name: "Contact", href: "#contact" },
+];
+---
+
+<nav
+  id="navbar"
+  class="fixed top-6 left-1/2 -translate-x-1/2 z-50 w-[90%] md:w-[700px] rounded-full backdrop-blur-md bg-text/5 border border-text/10 shadow-lg transition-all duration-300 transform"
+>
+  <div class="px-6 py-4 flex items-center justify-between">
+    <a
+      href="#"
+      class="text-lg font-bold tracking-tighter flex items-center gap-2"
+    >
+      <div
+        class="w-8 h-8 bg-primary rounded-full flex items-center justify-center text-background font-mono text-xs"
+      >
+        <img
+          src="https://res.cloudinary.com/dggjfqpsx/image/upload/v1769216059/portfolio/code-svgrepo-com_iglfu5.svg"
+          alt="Code"
+          class="w-full h-full p-1"
+        />
+      </div>
+      <span class="inline">nstdev0</span>
+    </a>
+
+    <!-- Desktop Menu -->
+    <ul class="hidden md:flex gap-6 text-sm font-medium text-muted">
+      {
+        navItems.map((item) => (
+          <li>
+            <a
+              href={item.href}
+              class="nav-link hover:text-text transition-colors"
+              data-target={item.href.substring(1)}
+            >
+              {item.name}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+
+    <div class="flex items-center gap-4">
+      <!-- Mobile Menu Button -->
+      <button
+        id="mobile-menu-btn"
+        class="md:hidden text-text p-2"
+        aria-label="Menu"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="currentColor"
+          class="w-6 h-6"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"></path>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile Menu Overlay -->
+  <div
+    id="mobile-menu"
+    class="md:hidden absolute top-full left-0 w-full mt-2 p-4 rounded-3xl bg-surfaceHighlight/90 backdrop-blur-xl border border-text/10 scale-95 opacity-0 pointer-events-none transition-all duration-300 origin-top"
+  >
+    <ul class="flex flex-col gap-4 text-center">
+      {
+        navItems.map((item) => (
+          <li>
+            <a
+              href={item.href}
+              class="mobile-nav-link block text-muted hover:text-text py-2"
+              data-target={item.href.substring(1)}
+            >
+              {item.name}
+            </a>
+          </li>
+        ))
+      }
+      <li>
+        <a
+          href="#contact"
+          class="mobile-nav-link block bg-primary text-background py-2 rounded-xl mt-2"
+        >
+          Hablemos
+        </a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<script>
+  // Scroll Logic
+  let lastScrollY = window.scrollY;
+  const navbar = document.getElementById("navbar");
+
+  window.addEventListener("scroll", () => {
+    const currentScrollY = window.scrollY;
+
+    // Only trigger hide/show if we have scrolled more than 50px to avoid initial jitter
+    if (currentScrollY > 50) {
+      if (currentScrollY > lastScrollY) {
+        // Scrolling down -> Hide
+        navbar?.classList.add("-translate-y-[200%]");
+      } else {
+        // Scrolling up -> Show
+        navbar?.classList.remove("-translate-y-[200%]");
+      }
+    } else {
+      // Always show at the top
+      navbar?.classList.remove("-translate-y-[200%]");
+    }
+
+    lastScrollY = currentScrollY;
+  });
+
+  // Mobile Menu Logic
+  const menuBtn = document.getElementById("mobile-menu-btn");
+  const mobileMenu = document.getElementById("mobile-menu");
+  const mobileLinks = document.querySelectorAll(".mobile-nav-link");
+
+  menuBtn?.addEventListener("click", () => {
+    mobileMenu?.classList.toggle("opacity-0");
+    mobileMenu?.classList.toggle("pointer-events-none");
+    mobileMenu?.classList.toggle("scale-95");
+  });
+
+  mobileLinks.forEach((link) => {
+    link.addEventListener("click", () => {
+      mobileMenu?.classList.add("opacity-0", "pointer-events-none", "scale-95");
+    });
+  });
+
+  // Active Section Logic
+  const sections = document.querySelectorAll("section");
+  const navLinks = document.querySelectorAll(".nav-link");
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          navLinks.forEach((link) => {
+            link.classList.remove("text-primary", "font-bold");
+            link.classList.add("text-muted");
+            if (link.getAttribute("data-target") === entry.target.id) {
+              link.classList.remove("text-muted");
+              link.classList.add("text-primary", "font-bold");
+            }
+          });
+        }
+      });
+    },
+    { threshold: 0.5 },
+  );
+
+  sections.forEach((section) => observer.observe(section));
+</script>

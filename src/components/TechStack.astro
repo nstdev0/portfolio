@@ -1,0 +1,64 @@
+---
+import { getCollection } from "astro:content";
+
+const rawTechs = await getCollection("technologies");
+
+const sortedTechs = rawTechs.sort((a, b) => a.data.order - b.data.order);
+
+const marqueeTechs = [...sortedTechs, ...sortedTechs];
+---
+
+<section
+  id="tech"
+  class="py-20 overflow-hidden relative border-y border-text/5 bg-surface/20"
+>
+  <div
+    class="absolute inset-y-0 left-0 w-32 bg-linear-to-r from-background to-transparent z-10 pointer-events-none"
+  >
+  </div>
+  <div
+    class="absolute inset-y-0 right-0 w-32 bg-linear-to-l from-background to-transparent z-10 pointer-events-none"
+  >
+  </div>
+
+  <div class="max-w-7xl mx-auto px-6 mb-8 text-center">
+    <p class="text-sm text-primary font-bold tracking-widest uppercase">
+      Tech Stack
+    </p>
+  </div>
+
+  <div class="flex overflow-hidden">
+    <div class="flex gap-12 animate-marquee whitespace-nowrap px-6">
+      {
+        marqueeTechs.map((tech) => (
+          <div class="flex items-center gap-3 text-2xl font-bold text-muted hover:text-text transition-colors cursor-default group">
+            <img
+              src={tech.data.icon}
+              alt={tech.data.name}
+              class="w-8 h-8 object-contain filter grayscale group-hover:grayscale-0 transition-all duration-300"
+            />
+            <span>{tech.data.name}</span>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  @keyframes marquee {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+  .animate-marquee {
+    animation: marquee 30s linear infinite;
+    width: fit-content;
+  }
+  .animate-marquee:hover {
+    animation-play-state: paused;
+  }
+</style>

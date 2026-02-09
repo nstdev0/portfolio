@@ -1,0 +1,12 @@
+{
+    "title": "JsCampShop",
+    "desc": "Full-stack e-commerce solution. Implements modern cart logic, optimized asset loading, and a responsive UI designed for conversion.",
+    "tags": [
+        "React",
+        "Microservices Ready",
+        "Tailwind"
+    ],
+    "img": "",
+    "link": "#",
+    "order": 2
+}

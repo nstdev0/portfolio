@@ -1,17 +1,29 @@
 ---
-
+import Layout from "../layouts/Layout.astro";
+import Navigation from "../components/Navigation.astro";
+import Sidebar from "../components/Sidebar.astro";
+import Hero from "../components/Hero.astro";
+import TechStack from "../components/TechStack.astro"; // (Opcional si usas el grid de About)
+import About from "../components/About.astro";
+import Projects from "../components/Projects.astro";
+import Experience from "../components/Experience.astro";
+import Education from "../components/Education.astro"; // Crea este similar a Experience
+import Contact from "../components/Contact.astro";
+import Footer from "../components/Footer.astro";
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<Layout title="nstdev0 | Full Stack Developer">
+  <Navigation />
+  <Sidebar />
+
+  <main>
+    <Hero />
+    <TechStack />
+    <About />
+    <Projects />
+    <Experience />
+    <Education />
+    <Contact />
+  </main>
+  <Footer />
+</Layout>

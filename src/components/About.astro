@@ -1,0 +1,88 @@
+<section id="about" class="py-20 bg-surface/30">
+  <div class="max-w-7xl mx-auto px-6">
+    <h2 class="text-primary text-sm font-bold tracking-widest mb-2 uppercase">
+      About Me
+    </h2>
+    <h3 class="text-4xl md:text-5xl font-bold mb-12">
+      Code Quality Meets <span class="text-muted">User Experience.</span>
+    </h3>
+
+    <div class="grid md:grid-cols-2 gap-12 mb-20">
+      <div class="space-y-6 text-muted text-lg">
+        <p>
+          I am a software engineer driven by technical excellence. I don't just
+          write code; I design systems. Whether it's optimizing a React frontend
+          for speed or structuring a Node.js backend with Hexagonal
+          Architecture, my goal is always the same: robustness, scalability, and
+          maintainability.
+        </p>
+
+        <div class="grid grid-cols-3 gap-8 pt-8 border-t border-text/10">
+          <div>
+            <span class="block text-3xl font-bold text-text">3+</span>
+            <span class="text-sm">Years Coding</span>
+          </div>
+          <div>
+            <span class="block text-3xl font-bold text-text">15+</span>
+            <span class="text-sm">Repositories</span>
+          </div>
+          <div>
+            <span class="block text-3xl font-bold text-text">100%</span>
+            <span class="text-sm">Type-Safe</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-2 gap-4">
+        {
+          [
+            {
+              name: "Server Side & Architecture",
+              skills: ["Node.js", "NestJS", "Prisma", "PostgreSQL", "Docker"],
+            },
+            {
+              name: "Interface & Interactivity",
+              skills: ["Next.js 15", "React", "Tailwind CSS", "Framer Motion"],
+            },
+            {
+              name: "Data Strategy",
+              skills: ["PostgreSQL", "MongoDB", "MySQL"],
+            },
+            {
+              name: "CI/CD & Tools",
+              skills: ["Git", "GitHub", "Linux", "Vercel"],
+            },
+          ].map((category) => (
+            <div class="bg-surfaceHighlight p-5 rounded-xl border border-text/5 hover:border-primary/50 transition-colors group">
+              <div class="flex items-center gap-3 mb-4">
+                <div class="p-2 bg-text/5 rounded-lg group-hover:bg-primary/20 transition-colors">
+                  <svg
+                    class="w-5 h-5 text-primary"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"
+                    />
+                  </svg>
+                </div>
+                <h4 class="font-bold text-sm text-text">{category.name}</h4>
+              </div>
+              <div class="flex flex-wrap gap-2">
+                {category.skills.map((skill) => (
+                  <span class="px-2 py-1 text-xs rounded-md bg-text/5 border border-text/5 text-muted hover:text-text transition-colors">
+                    {skill}
+                  </span>
+                ))}
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</section>

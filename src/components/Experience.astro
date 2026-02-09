@@ -1,0 +1,39 @@
+<section id="experience" class="py-20 bg-surface/30">
+  <div class="max-w-4xl mx-auto px-6">
+    <h2 class="text-4xl font-bold mb-16">
+      Professional <span class="text-muted">Experience</span>
+    </h2>
+
+    <div
+      class="space-y-12 relative border-l border-text/10 ml-3 md:ml-6 pl-8 md:pl-12"
+    >
+      {
+        [
+          {
+            role: "Some Role",
+            company: "Some Company",
+            period: "xxx — xxx",
+            desc: "Some description",
+          },
+        ].map((job) => (
+          <div class="relative group">
+            <span class="absolute -left-[41px] md:-left-[57px] top-2 h-5 w-5 rounded-full border-4 border-background bg-surfaceHighlight group-hover:bg-primary transition-colors" />
+
+            <div class="bg-surfaceHighlight p-8 rounded-2xl border border-text/5 hover:border-text/10 transition-all">
+              <div class="flex flex-col md:flex-row md:justify-between md:items-center mb-4 gap-2">
+                <div>
+                  <h3 class="text-xl font-bold text-text">{job.role}</h3>
+                  <p class="text-primary">{job.company}</p>
+                </div>
+                <span class="text-xs font-mono text-muted bg-text/5 px-3 py-1 rounded-full w-fit">
+                  {job.period}
+                </span>
+              </div>
+              <p class="text-muted leading-relaxed">{job.desc}</p>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>

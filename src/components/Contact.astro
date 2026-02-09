@@ -1,0 +1,121 @@
+---
+import { actions } from "astro:actions";
+---
+
+<section id="contact" class="py-32 relative overflow-hidden">
+  <div
+    class="absolute bottom-0 left-1/2 -translate-x-1/2 w-[600px] h-[400px] bg-primary/20 rounded-full blur-[100px] -z-10 pointer-events-none"
+  >
+  </div>
+
+  <div class="max-w-3xl mx-auto px-6 text-center">
+    <span
+      class="inline-block py-1 px-3 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs font-bold mb-6"
+    >
+      Do you have an idea?
+    </span>
+
+    <h2 class="text-5xl md:text-6xl font-bold mb-8 leading-tight">
+      Ready to build something <br />
+      <span
+        class="text-transparent bg-clip-text bg-linear-to-r from-text to-muted"
+        >extraordinary?</span
+      >
+    </h2>
+
+    <p class="text-xl text-muted mb-12 max-w-lg mx-auto">
+      Currently available for freelance projects and open source collaborations.
+    </p>
+
+    <form
+      action={actions.sendContact}
+      method="POST"
+      class="max-w-md mx-auto space-y-4 text-left bg-surface/50 p-6 rounded-2xl border border-text/5 backdrop-blur-sm"
+      id="contact-form"
+    >
+      <div>
+        <label
+          for="email"
+          class="block text-xs font-bold uppercase text-muted mb-2"
+          >Your Email</label
+        >
+        <input
+          type="email"
+          name="email"
+          id="email"
+          required
+          placeholder="hola@ejemplo.com"
+          class="w-full bg-background border border-text/10 rounded-lg px-4 py-3 text-text focus:outline-none focus:border-primary transition-colors"
+        />
+      </div>
+
+      <div>
+        <label
+          for="message"
+          class="block text-xs font-bold uppercase text-muted mb-2"
+          >Your Message</label
+        >
+        <textarea
+          name="message"
+          id="message"
+          required
+          rows="3"
+          placeholder="Tell me about your project..."
+          class="w-full bg-background border border-text/10 rounded-lg px-4 py-3 text-text focus:outline-none focus:border-primary transition-colors resize-none"
+        ></textarea>
+      </div>
+
+      <button
+        type="submit"
+        class="w-full bg-primary hover:bg-blue-600 text-white font-bold py-4 rounded-lg transition-all transform hover:scale-[1.02] flex items-center justify-center gap-2"
+        id="submit-btn"
+      >
+        Let's Work Together
+        <svg
+          width="20"
+          height="20"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          ><path d="M5 12h14"></path><path d="M12 5l7 7-7 7"></path></svg
+        >
+      </button>
+
+      <p id="form-status" class="text-center text-sm mt-4 hidden"></p>
+    </form>
+  </div>
+</section>
+
+<script>
+  import { actions } from "astro:actions";
+
+  const form = document.getElementById("contact-form") as HTMLFormElement;
+  const btn = document.getElementById("submit-btn") as HTMLButtonElement;
+  const status = document.getElementById("form-status")!;
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const formData = new FormData(form);
+
+    // Estado de carga
+    const originalText = btn.innerHTML;
+    btn.disabled = true;
+    btn.innerHTML = `<span class="animate-spin">⏳</span> Enviando...`;
+
+    // Llamada a Astro Action
+    const { error } = await actions.sendContact(formData);
+
+    if (!error) {
+      form.reset();
+      status.textContent = "¡Mensaje recibido! Te responderé pronto.";
+      status.className = "text-center text-sm mt-4 text-backend block";
+    } else {
+      status.textContent = "Hubo un error. Intenta de nuevo.";
+      status.className = "text-center text-sm mt-4 text-version-control block";
+    }
+
+    btn.disabled = false;
+    btn.innerHTML = originalText;
+  });
+</script>

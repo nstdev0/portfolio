@@ -1,0 +1,44 @@
+---
+const education = [
+  {
+    degree: "Some degree",
+    school: "Some school",
+    year: "xxx - xxx",
+    desc: "Some description",
+  },
+];
+---
+
+<section id="education" class="py-20">
+  <div class="max-w-4xl mx-auto px-6">
+    <div class="flex items-center gap-4 mb-12">
+      <h2 class="text-3xl font-bold">
+        Education <span class="text-muted">Academy</span>
+      </h2>
+      <div class="h-px flex-1 bg-text/10"></div>
+    </div>
+
+    <div class="grid gap-6">
+      {
+        education.map((edu) => (
+          <div class="group flex flex-col md:flex-row gap-6 p-6 rounded-2xl border border-text/5 bg-surface hover:bg-surfaceHighlight transition-all duration-300">
+            <div class="min-w-[120px]">
+              <span class="text-5xl font-bold text-text/5 group-hover:text-primary/10 transition-colors">
+                {edu.year.split("-")[0]}
+              </span>
+            </div>
+            <div>
+              <h3 class="text-xl font-bold text-text mb-1 group-hover:text-primary transition-colors">
+                {edu.degree}
+              </h3>
+              <p class="text-sm text-muted mb-4">
+                {edu.school} • {edu.year}
+              </p>
+              <p class="text-muted text-sm leading-relaxed">{edu.desc}</p>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>

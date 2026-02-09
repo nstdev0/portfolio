@@ -1,0 +1,12 @@
+{
+    "title": "Plaza-Vea API Integration",
+    "desc": "High-performance RESTful API designed with hexagonal architecture principles. Optimized for scalability and complex data handling.",
+    "tags": [
+        "Node.js",
+        "Clean Architecture",
+        "Docker"
+    ],
+    "img": "https://res.cloudinary.com/dggjfqpsx/image/upload/v1769210941/portfolio/project-plaza-vea-based-clone_lb68pp.png",
+    "link": "https://plaza-vea-client.vercel.app",
+    "order": 3
+}
