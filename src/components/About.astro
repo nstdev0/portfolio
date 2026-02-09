@@ -1,34 +1,37 @@
+---
+import { getLangFromUrl, useTranslations } from "../i18n/utils";
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+---
+
 <section id="about" class="py-20 bg-surface/30">
   <div class="max-w-7xl mx-auto px-6">
     <h2 class="text-primary text-sm font-bold tracking-widest mb-2 uppercase">
-      About Me
+      {t("about.title")}
     </h2>
     <h3 class="text-4xl md:text-5xl font-bold mb-12">
-      Code Quality Meets <span class="text-muted">User Experience.</span>
+      {t("about.heading")} <span class="text-muted">{t("about.heading.span")}</span>
     </h3>
 
     <div class="grid md:grid-cols-2 gap-12 mb-20">
       <div class="space-y-6 text-muted text-lg">
         <p>
-          I am a software engineer driven by technical excellence. I don't just
-          write code; I design systems. Whether it's optimizing a React frontend
-          for speed or structuring a Node.js backend with Hexagonal
-          Architecture, my goal is always the same: robustness, scalability, and
-          maintainability.
+          {t("about.description")}
         </p>
 
         <div class="grid grid-cols-3 gap-8 pt-8 border-t border-text/10">
           <div>
             <span class="block text-3xl font-bold text-text">3+</span>
-            <span class="text-sm">Years Coding</span>
+            <span class="text-sm">{t("about.stats.years")}</span>
           </div>
           <div>
             <span class="block text-3xl font-bold text-text">15+</span>
-            <span class="text-sm">Repositories</span>
+            <span class="text-sm">{t("about.stats.repos")}</span>
           </div>
           <div>
             <span class="block text-3xl font-bold text-text">100%</span>
-            <span class="text-sm">Type-Safe</span>
+            <span class="text-sm">{t("about.stats.typeSafe")}</span>
           </div>
         </div>
       </div>
@@ -37,19 +40,19 @@
         {
           [
             {
-              name: "Server Side & Architecture",
+              name: t("about.skills.server"),
               skills: ["Node.js", "NestJS", "Prisma", "PostgreSQL", "Docker"],
             },
             {
-              name: "Interface & Interactivity",
+              name: t("about.skills.interface"),
               skills: ["Next.js 15", "React", "Tailwind CSS", "Framer Motion"],
             },
             {
-              name: "Data Strategy",
+              name: t("about.skills.data"),
               skills: ["PostgreSQL", "MongoDB", "MySQL"],
             },
             {
-              name: "CI/CD & Tools",
+              name: t("about.skills.tools"),
               skills: ["Git", "GitHub", "Linux", "Vercel"],
             },
           ].map((category) => (
@@ -70,6 +73,7 @@
                     />
                   </svg>
                 </div>
+                <!-- h4 inside map might need explicit key if rendered dynamically, but here purely static mapping -->
                 <h4 class="font-bold text-sm text-text">{category.name}</h4>
               </div>
               <div class="flex flex-wrap gap-2">

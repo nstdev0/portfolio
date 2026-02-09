@@ -1,5 +1,9 @@
 ---
 import { getCollection } from "astro:content";
+import { getLangFromUrl, useTranslations } from "../i18n/utils";
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
 
 const rawProjects = await getCollection("projects");
 const projects = rawProjects.sort((a, b) => a.data.order - b.data.order);
@@ -12,10 +16,11 @@ const projects = rawProjects.sort((a, b) => a.data.order - b.data.order);
         <h2
           class="text-primary text-sm font-bold tracking-widest mb-2 uppercase"
         >
-          Projects
+          {t("projects.subtitle")}
         </h2>
         <h3 class="text-4xl md:text-5xl font-bold">
-          My <span class="text-muted">Work</span>
+          {t("projects.title")}
+          <span class="text-muted">{t("projects.title.span")}</span>
         </h3>
       </div>
     </div>
@@ -50,7 +55,7 @@ const projects = rawProjects.sort((a, b) => a.data.order - b.data.order);
                         clip-rule="evenodd"
                       />
                     </svg>
-                    Play Demo
+                    {t("projects.playDemo")}
                   </button>
                 )}
               </div>
@@ -80,7 +85,7 @@ const projects = rawProjects.sort((a, b) => a.data.order - b.data.order);
                     href={project.data.link}
                     target="_blank"
                     class="p-2 bg-text/10 rounded-full hover:bg-primary hover:text-white transition-colors text-text"
-                    aria-label="Visit site"
+                    aria-label={t("projects.visitSite")}
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"

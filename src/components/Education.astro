@@ -1,4 +1,9 @@
 ---
+import { getLangFromUrl, useTranslations } from "../i18n/utils";
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
 const education = [
   {
     degree: "Some degree",
@@ -13,7 +18,8 @@ const education = [
   <div class="max-w-4xl mx-auto px-6">
     <div class="flex items-center gap-4 mb-12">
       <h2 class="text-3xl font-bold">
-        Education <span class="text-muted">Academy</span>
+        {t("education.title")}
+        <span class="text-muted">{t("education.title.span")}</span>
       </h2>
       <div class="h-px flex-1 bg-text/10"></div>
     </div>

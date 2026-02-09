@@ -1,3 +1,10 @@
+---
+import { getLangFromUrl, useTranslations } from "../i18n/utils";
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+---
+
 <footer
   class="py-8 border-t border-text/5 bg-background text-center md:text-left"
 >
@@ -6,17 +13,13 @@
   >
     <div class="flex flex-col gap-2">
       <h3 class="text-xl font-bold text-text">
-        Let's Build Scalable Solutions.
+        {t("footer.title")}
       </h3>
       <p class="text-muted text-sm mb-4">
-        Currently open to Full-Stack roles and challenging technical projects.
+        {t("footer.subtitle")}
       </p>
       <p class="text-sm text-muted">
-        © 2026 nstdev0
-        <span class="hidden md:inline mx-2">•</span>
-        <span class="block md:inline mt-1 md:mt-0 opacity-50"
-          >Built with Astro, Tailwind CSS, and TypeScript.</span
-        >
+        {t("footer.copyright")}
       </p>
     </div>
 
@@ -38,7 +41,7 @@
         class="flex items-center gap-2 text-text bg-text/5 px-4 py-2 rounded-full text-xs font-bold border border-text/5 hover:bg-text/10 transition-colors"
       >
         <span class="w-2 h-2 rounded-full bg-backend"></span>
-        Status: Online
+        {t("footer.status")}
       </a>
     </div>
   </div>

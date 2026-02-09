@@ -10,20 +10,30 @@ import Experience from "../components/Experience.astro";
 import Education from "../components/Education.astro";
 import Contact from "../components/Contact.astro";
 import Footer from "../components/Footer.astro";
+import { getLangFromUrl, useTranslations } from "../i18n/utils";
+
+export const prerender = true;
+
+export async function getStaticPaths() {
+    return [{ params: { lang: "es" } }, { params: { lang: undefined } }];
+}
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
 ---
 
-<Layout title="nstdev0 | Full Stack Developer">
-  <Navigation />
-  <Sidebar />
+<Layout title="nstdev0 | Full Stack Developer" lang={lang}>
+    <Navigation />
+    <Sidebar />
 
-  <main>
-    <Hero />
-    <TechStack />
-    <About />
-    <Projects />
-    <Experience />
-    <Education />
-    <Contact />
-  </main>
-  <Footer />
+    <main>
+        <Hero />
+        <TechStack />
+        <About />
+        <Projects />
+        <Experience />
+        <Education />
+        <Contact />
+    </main>
+    <Footer />
 </Layout>

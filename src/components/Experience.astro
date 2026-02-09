@@ -1,7 +1,15 @@
+---
+import { getLangFromUrl, useTranslations } from "../i18n/utils";
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+---
+
 <section id="experience" class="py-20 bg-surface/30">
   <div class="max-w-4xl mx-auto px-6">
     <h2 class="text-4xl font-bold mb-16">
-      Professional <span class="text-muted">Experience</span>
+      {t("experience.title")}
+      <span class="text-muted">{t("experience.title.span")}</span>
     </h2>
 
     <div

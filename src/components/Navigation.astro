@@ -1,16 +1,22 @@
 ---
+import { getLangFromUrl, useTranslations } from "../i18n/utils";
+import LanguagePicker from "./LanguagePicker.astro";
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
 const navItems = [
-  { name: "Home", href: "#home" },
-  { name: "About", href: "#about" },
-  { name: "Work", href: "#projects" },
-  { name: "Trajectory", href: "#experience" },
-  { name: "Contact", href: "#contact" },
+  { name: t("nav.home"), href: "#home" },
+  { name: t("nav.about"), href: "#about" },
+  { name: t("nav.projects"), href: "#projects" },
+  { name: t("nav.experience"), href: "#experience" },
+  { name: t("nav.contact"), href: "#contact" },
 ];
 ---
 
 <nav
   id="navbar"
-  class="fixed top-6 left-1/2 -translate-x-1/2 z-50 w-[90%] md:w-[700px] rounded-full backdrop-blur-md bg-text/5 border border-text/10 shadow-lg transition-all duration-300 transform"
+  class="fixed top-6 left-1/2 -translate-x-1/2 z-50 w-[90%] md:w-[50%] rounded-full backdrop-blur-md bg-text/5 border border-text/10 shadow-lg transition-all duration-300 transform"
 >
   <div class="px-6 py-4 flex items-center justify-between">
     <a
@@ -47,6 +53,7 @@ const navItems = [
     </ul>
 
     <div class="flex items-center gap-4">
+      <LanguagePicker />
       <!-- Mobile Menu Button -->
       <button
         id="mobile-menu-btn"
@@ -94,7 +101,7 @@ const navItems = [
           href="#contact"
           class="mobile-nav-link block bg-primary text-background py-2 rounded-xl mt-2"
         >
-          Hablemos
+          {t("nav.cta")}
         </a>
       </li>
     </ul>

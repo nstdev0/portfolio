@@ -1,13 +1,34 @@
 ---
+import { getLangFromUrl, useTranslations } from "../i18n/utils";
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
 const sections = [
   "home",
-  "tech",
+  "tech", // Ensure 'nav.tech' or similar exists if we translate this, but currently it maps to #id.
+  // Wait, the sidebar uses section names as keys for tooltips.
+  // I need to start using 'nav.x' keys for looking up the tooltip label.
   "about",
   "projects",
   "experience",
   "education",
   "contact",
 ];
+
+// Helper to get translation for section, fallback to capitalize
+function getSectionLabel(section: string) {
+  // We can try to look up 'nav.section'
+  // But 'tech' is not in my ui.ts nav list ('nav.tech'?). I should add it or genericize.
+  // For now, I'll map them manually or add to ui.ts.
+  // Let's add 'nav.tech' to ui.ts in next step or just use a ad-hoc map.
+  // actually, let's just use what we have in ui.ts for matching keys.
+  const key = `nav.${section}` as any;
+  // @ts-ignore
+  return t(key) !== key
+    ? t(key)
+    : section.charAt(0).toUpperCase() + section.slice(1);
+}
 ---
 
 <div
@@ -17,11 +38,11 @@ const sections = [
     sections.map((section) => (
       <a
         href={`#${section}`}
-        aria-label={`Ir a ${section}`}
+        aria-label={`${t("nav.menu")} - ${getSectionLabel(section)}`}
         class="group relative flex items-center justify-end"
       >
         <span class="absolute right-6 opacity-0 group-hover:opacity-100 transition-opacity text-xs text-muted capitalize mr-2">
-          {section}
+          {getSectionLabel(section)}
         </span>
         <div
           class="w-2 h-2 rounded-full bg-white/20 group-hover:bg-primary transition-all duration-300 nav-dot"

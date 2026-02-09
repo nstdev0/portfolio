@@ -1,5 +1,9 @@
 ---
 import { actions } from "astro:actions";
+import { getLangFromUrl, useTranslations } from "../i18n/utils";
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
 ---
 
 <section id="contact" class="py-32 relative overflow-hidden">
@@ -12,19 +16,20 @@ import { actions } from "astro:actions";
     <span
       class="inline-block py-1 px-3 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs font-bold mb-6"
     >
-      Do you have an idea?
+      {t("contact.badge")}
     </span>
 
     <h2 class="text-5xl md:text-6xl font-bold mb-8 leading-tight">
-      Ready to build something <br />
+      {t("contact.title")}
+      <br />
       <span
         class="text-transparent bg-clip-text bg-linear-to-r from-text to-muted"
-        >extraordinary?</span
+        >{t("contact.title.span")}</span
       >
     </h2>
 
     <p class="text-xl text-muted mb-12 max-w-lg mx-auto">
-      Currently available for freelance projects and open source collaborations.
+      {t("contact.subtitle")}
     </p>
 
     <form
@@ -37,14 +42,14 @@ import { actions } from "astro:actions";
         <label
           for="email"
           class="block text-xs font-bold uppercase text-muted mb-2"
-          >Your Email</label
+          >{t("contact.form.email")}</label
         >
         <input
           type="email"
           name="email"
           id="email"
           required
-          placeholder="hola@ejemplo.com"
+          placeholder={t("contact.form.placeholder.email")}
           class="w-full bg-background border border-text/10 rounded-lg px-4 py-3 text-text focus:outline-none focus:border-primary transition-colors"
         />
       </div>
@@ -53,14 +58,14 @@ import { actions } from "astro:actions";
         <label
           for="message"
           class="block text-xs font-bold uppercase text-muted mb-2"
-          >Your Message</label
+          >{t("contact.form.message")}</label
         >
         <textarea
           name="message"
           id="message"
           required
           rows="3"
-          placeholder="Tell me about your project..."
+          placeholder={t("contact.form.placeholder.message")}
           class="w-full bg-background border border-text/10 rounded-lg px-4 py-3 text-text focus:outline-none focus:border-primary transition-colors resize-none"
         ></textarea>
       </div>
@@ -69,8 +74,9 @@ import { actions } from "astro:actions";
         type="submit"
         class="w-full bg-primary hover:bg-blue-600 text-white font-bold py-4 rounded-lg transition-all transform hover:scale-[1.02] flex items-center justify-center gap-2"
         id="submit-btn"
+        data-sending={t("contact.form.sending")}
       >
-        Let's Work Together
+        {t("contact.form.submit")}
         <svg
           width="20"
           height="20"
@@ -82,7 +88,13 @@ import { actions } from "astro:actions";
         >
       </button>
 
-      <p id="form-status" class="text-center text-sm mt-4 hidden"></p>
+      <p
+        id="form-status"
+        class="text-center text-sm mt-4 hidden"
+        data-success={t("contact.form.success")}
+        data-error={t("contact.form.error")}
+      >
+      </p>
     </form>
   </div>
 </section>
@@ -97,19 +109,22 @@ import { actions } from "astro:actions";
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
     const formData = new FormData(form);
+    const sendingText = btn.dataset.sending || "Sending...";
+    const successText = status.dataset.success || "Message received!";
+    const errorText = status.dataset.error || "Error sending message.";
 
     const originalText = btn.innerHTML;
     btn.disabled = true;
-    btn.innerHTML = `<span class="animate-spin">⏳</span> Enviando...`;
+    btn.innerHTML = `<span class="animate-spin">⏳</span> ${sendingText}`;
 
     const { error } = await actions.sendContact(formData);
 
     if (!error) {
       form.reset();
-      status.textContent = "¡Mensaje recibido! Te responderé pronto.";
+      status.textContent = successText;
       status.className = "text-center text-sm mt-4 text-backend block";
     } else {
-      status.textContent = "Hubo un error. Intenta de nuevo.";
+      status.textContent = errorText;
       status.className = "text-center text-sm mt-4 text-version-control block";
     }
 

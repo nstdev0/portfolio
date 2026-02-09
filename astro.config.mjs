@@ -6,5 +6,13 @@ export default defineConfig({
     vite: {
         plugins: [tailwindcss()],
     },
-    integrations: [react()]
+    integrations: [react()],
+    output: 'static',
+    i18n: {
+        defaultLocale: "en",
+        locales: ["en", "es"],
+        routing: {
+            prefixDefaultLocale: false
+        }
+    }
 });
