@@ -1,7 +1,7 @@
 import { defineCollection, z } from "astro:content";
 
 const technologies = defineCollection({
-  type: "data", // Use 'content' for .mdx files, 'data' is for .json/.yaml
+  type: "data",
   schema: z.object({
     name: z.string(),
     icon: z.string(),

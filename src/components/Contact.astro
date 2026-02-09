@@ -98,12 +98,10 @@ import { actions } from "astro:actions";
     e.preventDefault();
     const formData = new FormData(form);
 
-    // Estado de carga
     const originalText = btn.innerHTML;
     btn.disabled = true;
     btn.innerHTML = `<span class="animate-spin">⏳</span> Enviando...`;
 
-    // Llamada a Astro Action
     const { error } = await actions.sendContact(formData);
 
     if (!error) {

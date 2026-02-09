@@ -166,15 +166,12 @@ const projects = rawProjects.sort((a, b) => a.data.order - b.data.order);
 
     function openModal(videoUrl: string) {
       modal?.classList.remove("hidden");
-      // Trigger reflow
       void modal?.offsetWidth;
       modal?.classList.remove("opacity-0");
       modalContent?.classList.remove("scale-95");
       modalContent?.classList.add("scale-100");
-
-      // Auto-play modification for YouTube embeds if needed, or just set src
       iframe.src = videoUrl;
-      document.body.style.overflow = "hidden"; // Prevent scrolling
+      document.body.style.overflow = "hidden";
     }
 
     function closeModal() {
@@ -184,7 +181,7 @@ const projects = rawProjects.sort((a, b) => a.data.order - b.data.order);
 
       setTimeout(() => {
         modal?.classList.add("hidden");
-        iframe.src = ""; // Stop video
+        iframe.src = "";
         document.body.style.overflow = "";
       }, 300);
     }
@@ -200,7 +197,6 @@ const projects = rawProjects.sort((a, b) => a.data.order - b.data.order);
     closeBtn.addEventListener("click", closeModal);
     backdrop.addEventListener("click", closeModal);
 
-    // Close on Escape key
     document.addEventListener("keydown", (e) => {
       if (e.key === "Escape" && !modal.classList.contains("hidden")) {
         closeModal();
@@ -208,7 +204,6 @@ const projects = rawProjects.sort((a, b) => a.data.order - b.data.order);
     });
   }
 
-  // Run on page load and after Astro swaps (for View Transitions)
   setupVideoModal();
   document.addEventListener("astro:page-load", setupVideoModal);
 </script>
