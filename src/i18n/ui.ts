@@ -70,7 +70,8 @@ export const ui = {
 
         // Footer
         'footer.title': 'Let\'s Build Scalable Solutions.',
-        'footer.subtitle': 'Built with Astro, Tailwind & TypeScript.',
+        'footer.subtitle': 'Built with Astro.',
+        'footer.repo': 'View Source Code',
         'footer.status': 'Online',
         'footer.copyright': '© 2026 nstdev0. All rights reserved.', // Combining custom text with standard rights
     },
@@ -138,7 +139,8 @@ export const ui = {
 
         // Footer
         'footer.title': 'Construyamos Soluciones Escalables.',
-        'footer.subtitle': 'Construido con Astro, Tailwind CSS y TypeScript.',
+        'footer.subtitle': 'Construido con Astro.',
+        'footer.repo': 'Ver Código Fuente',
         'footer.status': 'En línea',
         'footer.copyright': '© 2026 nstdev0. Todos los derechos reservados.',
     },
