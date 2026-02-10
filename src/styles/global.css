@@ -71,6 +71,10 @@
   --color-database: #FBBF24;
 }
 
+a {
+  cursor: default;
+}
+
 /* View Transitions API - Ripple Effect */
 ::view-transition-old(root),
 ::view-transition-new(root) {

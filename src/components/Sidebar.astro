@@ -6,9 +6,7 @@ const t = useTranslations(lang);
 
 const sections = [
   "home",
-  "tech", // Ensure 'nav.tech' or similar exists if we translate this, but currently it maps to #id.
-  // Wait, the sidebar uses section names as keys for tooltips.
-  // I need to start using 'nav.x' keys for looking up the tooltip label.
+  "tech",
   "about",
   "projects",
   // "experience",
@@ -18,13 +16,7 @@ const sections = [
 
 // Helper to get translation for section, fallback to capitalize
 function getSectionLabel(section: string) {
-  // We can try to look up 'nav.section'
-  // But 'tech' is not in my ui.ts nav list ('nav.tech'?). I should add it or genericize.
-  // For now, I'll map them manually or add to ui.ts.
-  // Let's add 'nav.tech' to ui.ts in next step or just use a ad-hoc map.
-  // actually, let's just use what we have in ui.ts for matching keys.
   const key = `nav.${section}` as any;
-  // @ts-ignore
   return t(key) !== key
     ? t(key)
     : section.charAt(0).toUpperCase() + section.slice(1);
