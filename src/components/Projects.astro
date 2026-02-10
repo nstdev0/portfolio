@@ -48,9 +48,15 @@ const getBentoClass = (index: number) => {
             {/* 1. Imagen de Fondo */}
             <div class="absolute inset-0 w-full h-full">
               <img
-                src={project.data.img}
+                src={project.data.img.light}
                 alt={project.data.title[lang]}
-                class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 filter brightness-90 group-hover:brightness-100"
+                class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 filter brightness-90 group-hover:brightness-100 dark:hidden"
+                loading="lazy"
+              />
+              <img
+                src={project.data.img.dark}
+                alt={project.data.title[lang]}
+                class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 filter brightness-90 group-hover:brightness-100 hidden dark:block"
                 loading="lazy"
               />
               <div class="absolute inset-0 bg-linear-to-t from-black/90 via-black/40 to-transparent opacity-80 group-hover:opacity-60 transition-opacity duration-500" />

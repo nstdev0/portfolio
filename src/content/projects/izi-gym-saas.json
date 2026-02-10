@@ -12,7 +12,10 @@
         "Auth RBAC",
         "Dashboard"
     ],
-    "img": "img-demos/izi-gym-saas-demo-image.webp",
+    "img": {
+        "light": "img-demos/izi-gym-saas-demo-image.webp",
+        "dark": "img-demos/izi-gym-saas-demo-image-dark.webp"
+    },
     "video": "video-demos/izi-gym-saas-demo.mp4",
     "link": "https://gym-saas-eta.vercel.app",
     "order": 1

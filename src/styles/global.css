@@ -1,5 +1,6 @@
-/* src/styles/global.css */
 @import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
   --color-background: var(--color-background);
@@ -127,20 +128,44 @@ html {
   color: var(--color-text);
 }
 
-/* Scrollbar personalizada */
-::-webkit-scrollbar {
-  width: 10px;
+/* Circle shrinking from outside in (for Light mode transition) */
+@keyframes ripple-in {
+  from {
+    clip-path: circle(150vmax at var(--click-x) var(--click-y));
+  }
+
+  to {
+    clip-path: circle(0px at var(--click-x) var(--click-y));
+  }
 }
 
-::-webkit-scrollbar-track {
-  background: var(--color-background);
+/* 
+  Theme Transition Logic:
+  We use a temporary class set on <html> to determine direction.
+  Let's say "dark-transition" means we are going TO Dark mode.
+  "light-transition" means we are going TO Light mode.
+*/
+
+/* CASE 1: Transitioning TO Dark Mode (Contracting Circle) */
+/* The OLD view (Light) shrinks to reveal the NEW view (Dark) underneath */
+html.dark-transition::view-transition-old(root) {
+  animation: ripple-in 0.5s ease-out forwards;
+  z-index: 9999;
 }
 
-::-webkit-scrollbar-thumb {
-  background: #333;
-  border-radius: 5px;
+html.dark-transition::view-transition-new(root) {
+  animation: none;
+  z-index: 1;
 }
 
-::-webkit-scrollbar-thumb:hover {
-  background: #555;
+/* CASE 2: Transitioning TO Light Mode (Expanding Circle) */
+/* The NEW view (Light) grows on top of the OLD view (Dark) */
+html.light-transition::view-transition-new(root) {
+  animation: ripple 0.5s ease-in forwards;
+  z-index: 9999;
+}
+
+html.light-transition::view-transition-old(root) {
+  animation: none;
+  z-index: 1;
 }

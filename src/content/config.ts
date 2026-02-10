@@ -21,7 +21,10 @@ const projects = defineCollection({
       es: z.string(),
     }),
     tags: z.array(z.string()),
-    img: z.string(),
+    img: z.object({
+      light: z.string(),
+      dark: z.string(),
+    }),
     link: z.string(),
     video: z.string().optional(),
     order: z.number().default(99),

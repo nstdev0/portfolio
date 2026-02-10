@@ -12,7 +12,10 @@
         "Clean Architecture",
         "Docker"
     ],
-    "img": "img-demos/plaza-vea-demo-image.webp",
+    "img": {
+        "light": "img-demos/plaza-vea-api-image.webp",
+        "dark": "img-demos/plaza-vea-api-image-dark.webp"
+    },
     "video": "video-demos/plaza-vea-demo.mp4",
     "link": "https://plaza-vea-client.vercel.app",
     "order": 2
