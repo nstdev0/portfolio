@@ -12,8 +12,14 @@ const technologies = defineCollection({
 const projects = defineCollection({
   type: "data",
   schema: z.object({
-    title: z.string(),
-    desc: z.string(),
+    title: z.object({
+      en: z.string(),
+      es: z.string(),
+    }),
+    desc: z.object({
+      en: z.string(),
+      es: z.string(),
+    }),
     tags: z.array(z.string()),
     img: z.string(),
     link: z.string(),

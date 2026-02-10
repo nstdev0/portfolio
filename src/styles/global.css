@@ -17,7 +17,8 @@
   --color-version-control: var(--color-version-control);
   --color-database: var(--color-database);
 
-  --font-sans: "Inter", "sans-serif";
+  --font-sans: "Geist Sans", "sans-serif";
+  --font-mono: "Geist Mono", "monospace";
   --animate-float: float 6s ease-in-out infinite;
 
   @keyframes float {

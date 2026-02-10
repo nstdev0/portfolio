@@ -1,28 +1,62 @@
 ---
+import { getLangFromUrl, useTranslations } from "../i18n/utils";
 
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
 ---
 
-<a
-    href="/cv.pdf"
-    download="joseph-nestares-cv.pdf"
-    class="inline-flex items-center gap-2 px-6 py-3 bg-text/10 hover:bg-text/20 border border-text/10 backdrop-blur-md rounded-lg text-text font-medium transition-all duration-300 hover:scale-105 group"
-    aria-label="Download Full Stack Engineer Resume"
+<div
+    class="inline-flex items-center bg-text/5 border border-text/10 backdrop-blur-md rounded-xl overflow-hidden transition-transform duration-300 hover:scale-105"
 >
-    <span>Download CV</span>
-    <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="20"
-        height="20"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        class="transition-transform group-hover:translate-y-0.5"
+    <!-- Main Action (Left) -->
+    <!-- <a
+        href="/cv.pdf"
+        download="joseph-nestares-cv.pdf"
+        class="flex items-center gap-2 px-4 py-3 hover:bg-text/10 transition-colors group"
+        aria-label="Download Resume (Default)"
     >
-        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-        <polyline points="7 10 12 15 17 10"></polyline>
-        <line x1="12" y1="15" x2="12" y2="3"></line>
-    </svg>
-</a>
+        <span>Download CV</span>
+        <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="transition-transform group-hover:translate-y-0.5"
+        >
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+            <polyline points="7 10 12 15 17 10"></polyline>
+            <line x1="12" y1="15" x2="12" y2="3"></line>
+        </svg>
+    </a> -->
+
+    <!-- Divider -->
+    <!-- <div class="w-px h-4 bg-text/10"></div> -->
+
+    <!-- EN Action (Center) -->
+    <a
+        href="/cv.pdf"
+        download="joseph-nestares-cv.pdf"
+        class="px-3 py-3 text-sm font-mono hover:bg-text/10 transition-colors"
+        aria-label="Download English Resume"
+    >
+        {t("hero.downloadbtn")}
+    </a>
+
+    <!-- Divider -->
+    <div class="w-px h-4 bg-text/10"></div>
+
+    <!-- ES Action (Right) -->
+    <a
+        href="/cv-es.pdf"
+        download="joseph-nestares-cv-es.pdf"
+        class="px-3 py-3 text-sm font-mono hover:bg-text/10 transition-colors"
+        aria-label="Download Spanish Resume"
+    >
+        ES
+    </a>
+</div>

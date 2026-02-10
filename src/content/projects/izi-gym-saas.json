@@ -1,13 +1,19 @@
 {
-    "title": "Izi Gym SaaS",
-    "desc": "Enterprise-grade dashboard for gym management. Features secure authentication, real-time member management, and financial KPI visualization.",
+    "title": {
+        "en": "Izi Gym SaaS",
+        "es": "Izi Gym SaaS"
+    },
+    "desc": {
+        "en": "Enterprise-level administrative dashboard for gym management. Features secure authentication, real-time member tracking, and financial KPI visualization.",
+        "es": "Dashboard administrativo de nivel empresarial para gestión de gimnasios. Cuenta con autenticación segura, gestión de miembros en tiempo real y visualización de KPIs financieros."
+    },
     "tags": [
         "Next.js",
-        "Role-Based Auth",
+        "Auth RBAC",
         "Dashboard"
     ],
-    "img": "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    "video": "https://www.youtube.com/embed/dQw4w9WgXcQ?si=adS-2Uo1S5O8d8_I",
+    "img": "img-demos/izi-gym-saas-demo-image.webp",
+    "video": "video-demos/izi-gym-saas-demo.mp4",
     "link": "https://gym-saas-eta.vercel.app",
     "order": 1
 }

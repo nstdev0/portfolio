@@ -5,7 +5,7 @@ const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 ---
 
-<section id="about" class="py-20 bg-surface/30">
+<section id="about" class="py-15 bg-surface/30">
   <div class="max-w-7xl mx-auto px-6">
     <h2 class="text-primary text-sm font-bold tracking-widest mb-2 uppercase">
       {t("about.title")}
@@ -22,11 +22,11 @@ const t = useTranslations(lang);
 
         <div class="grid grid-cols-3 gap-8 pt-8 border-t border-text/10">
           <div>
-            <span class="block text-3xl font-bold text-text">3+</span>
+            <span class="block text-3xl font-bold text-text">1+</span>
             <span class="text-sm">{t("about.stats.years")}</span>
           </div>
           <div>
-            <span class="block text-3xl font-bold text-text">15+</span>
+            <span class="block text-3xl font-bold text-text">14+</span>
             <span class="text-sm">{t("about.stats.repos")}</span>
           </div>
           <div>
