@@ -27,7 +27,7 @@ function getPathForLang(l: string) {
 
 <div class="language-picker">
     {
-        Object.entries(languages).map(([l, label]) => (
+        Object.entries(languages).map(([l]) => (
             <a href={getPathForLang(l)} class:list={[{ active: l === lang }]}>
                 {l.toUpperCase()}
             </a>

@@ -73,7 +73,7 @@ export const ui = {
         'footer.subtitle': 'Built with Astro.',
         'footer.repo': 'View Source Code',
         'footer.status': 'Online',
-        'footer.copyright': '© 2026 nstdev0. All rights reserved.', // Combining custom text with standard rights
+        'footer.copyright': '© 2026 Joseph Nestares. All rights reserved.', // Combining custom text with standard rights
     },
     es: {
         // Navigation
@@ -142,6 +142,6 @@ export const ui = {
         'footer.subtitle': 'Construido con Astro.',
         'footer.repo': 'Ver Código Fuente',
         'footer.status': 'En línea',
-        'footer.copyright': '© 2026 nstdev0. Todos los derechos reservados.',
+        'footer.copyright': '© 2026 Joseph Nestares. Todos los derechos reservados.',
     },
 } as const;

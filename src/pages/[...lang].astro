@@ -8,7 +8,7 @@ import About from "../components/About.astro";
 import Projects from "../components/Projects.astro";
 import Contact from "../components/Contact.astro";
 import Footer from "../components/Footer.astro";
-import { getLangFromUrl, useTranslations } from "../i18n/utils";
+import { getLangFromUrl } from "../i18n/utils";
 
 export const prerender = true;
 
@@ -17,10 +17,9 @@ export async function getStaticPaths() {
 }
 
 const lang = getLangFromUrl(Astro.url);
-const t = useTranslations(lang);
 ---
 
-<Layout title="nstdev0 | Full Stack Developer" lang={lang}>
+<Layout title="Joseph Nestares | Full Stack Developer" lang={lang}>
     <Navigation />
     <Sidebar />
 

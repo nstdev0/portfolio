@@ -1,5 +1,6 @@
 ---
 import { getLangFromUrl, useTranslations } from "../i18n/utils";
+import { ui, defaultLang } from "../i18n/ui";
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
@@ -16,10 +17,8 @@ const sections = [
 
 // Helper to get translation for section, fallback to capitalize
 function getSectionLabel(section: string) {
-  const key = `nav.${section}` as any;
-  return t(key) !== key
-    ? t(key)
-    : section.charAt(0).toUpperCase() + section.slice(1);
+  const key = `nav.${section}` as keyof (typeof ui)[typeof defaultLang];
+  return t(key);
 }
 ---
 
