@@ -1,5 +1,4 @@
 ---
-import { actions } from "astro:actions";
 import { getLangFromUrl, useTranslations } from "../i18n/utils";
 
 const lang = getLangFromUrl(Astro.url);
@@ -32,8 +31,6 @@ const t = useTranslations(lang);
     </p>
 
     <form
-      action={actions.sendContact}
-      method="POST"
       class="max-w-md mx-auto space-y-4 text-left bg-surface/50 p-6 rounded-2xl border border-text/5 backdrop-blur-sm"
       id="contact-form"
     >
@@ -69,6 +66,8 @@ const t = useTranslations(lang);
         ></textarea>
       </div>
 
+      <div id="turnstile-widget" class="mt-2 mb-2 flex justify-center"></div>
+
       <button
         type="submit"
         class="w-full bg-primary hover:bg-blue-600 text-white font-bold py-4 rounded-lg transition-all transform hover:scale-[1.02] flex items-center justify-center gap-2"
@@ -98,16 +97,67 @@ const t = useTranslations(lang);
   </div>
 </section>
 
-<script>
-  import { actions } from "astro:actions";
+<script
+  is:inline
+  src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit"
+  async
+  defer></script>
 
+<script>
   const form = document.getElementById("contact-form") as HTMLFormElement;
   const btn = document.getElementById("submit-btn") as HTMLButtonElement;
   const status = document.getElementById("form-status")!;
+  const widgetContainer = document.getElementById("turnstile-widget")!;
+
+  let turnstileToken: string | null = null;
+  let widgetId: string | null = null;
+
+  // Disable button initially until turnstile is ready
+  btn.disabled = true;
+
+  const renderInterval = setInterval(() => {
+    if ((window as any).turnstile) {
+      clearInterval(renderInterval);
+      widgetId = (window as any).turnstile.render(widgetContainer, {
+        sitekey:
+          import.meta.env.PUBLIC_TURNSTILE_SITE_KEY ||
+          "1x00000000000000000000AA",
+        theme: "auto",
+        appearance: "interaction-only",
+        language: document.documentElement.lang || "es",
+        callback: (token: string) => {
+          turnstileToken = token;
+          btn.disabled = false;
+        },
+        "expired-callback": () => {
+          turnstileToken = null;
+          btn.disabled = true;
+        },
+        "error-callback": () => {
+          turnstileToken = null;
+          btn.disabled = true;
+        },
+      });
+    }
+  }, 100);
 
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
+    if (!turnstileToken) return;
+
     const formData = new FormData(form);
+    const email = formData.get("email") as string;
+    const message = formData.get("message") as string;
+
+    const payload = JSON.stringify({
+      to_email: email,
+      message: [
+        ["correo", email],
+        ["mensaje", message],
+      ],
+      turnstile_key: turnstileToken,
+    });
+
     const sendingText = btn.dataset.sending || "Sending...";
     const successText = status.dataset.success || "Message received!";
     const errorText = status.dataset.error || "Error sending message.";
@@ -116,18 +166,39 @@ const t = useTranslations(lang);
     btn.disabled = true;
     btn.innerHTML = `<span class="animate-spin">⏳</span> ${sendingText}`;
 
-    const { error } = await actions.sendContact(formData);
+    const SMTP_API_URL = import.meta.env.PUBLIC_SMTP_API_URL;
 
-    if (!error) {
+    try {
+      const res = await fetch(SMTP_API_URL, {
+        method: "POST",
+        body: payload,
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (!res.ok) {
+        if (res.status === 429) {
+          throw new Error("Demasiadas peticiones");
+        }
+        throw new Error("Error en el servidor");
+      }
+
       form.reset();
       status.textContent = successText;
       status.className = "text-center text-sm mt-4 text-backend block";
-    } else {
+    } catch (err) {
+      if (widgetId !== null && (window as any).turnstile) {
+        (window as any).turnstile.reset(widgetId);
+        turnstileToken = null;
+      }
       status.textContent = errorText;
       status.className = "text-center text-sm mt-4 text-version-control block";
+    } finally {
+      if (turnstileToken) {
+        btn.disabled = false;
+      }
+      btn.innerHTML = originalText;
     }
-
-    btn.disabled = false;
-    btn.innerHTML = originalText;
   });
 </script>
