@@ -1,7 +1,9 @@
-import { defineCollection, z } from "astro:content";
+import { defineCollection } from "astro:content";
+import { glob } from "astro/loaders";
+import { z } from "astro/zod";
 
 const technologies = defineCollection({
-  type: "data",
+  loader: glob({ pattern: "**/*.{json,yaml,yml}", base: "./src/content/technologies" }),
   schema: z.object({
     name: z.string(),
     icon: z.string(),
@@ -10,7 +12,7 @@ const technologies = defineCollection({
 });
 
 const projects = defineCollection({
-  type: "data",
+  loader: glob({ pattern: "**/*.{json,yaml,yml}", base: "./src/content/projects" }),
   schema: z.object({
     title: z.object({
       en: z.string(),

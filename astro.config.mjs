@@ -1,15 +1,21 @@
 import { defineConfig } from 'astro/config';
 import tailwindcss from '@tailwindcss/vite';
-import react from '@astrojs/react';
+import svelte from '@astrojs/svelte';
 
 import vercel from '@astrojs/vercel';
 
 export default defineConfig({
   vite: {
       plugins: [tailwindcss()],
+      optimizeDeps: {
+          exclude: ['turnstile-svelte']
+      },
+      resolve: {
+          dedupe: ['svelte', 'svelte/transition', 'svelte/internal']
+      }
   },
 
-  integrations: [react()],
+  integrations: [svelte()],
   output: 'static',
 
   i18n: {
